@@ -1,4 +1,4 @@
-# Setting Up Kafka
+# Setting Up Kafka 3.0.0
 
 <details><summary>Mac</summary>
 <p>
@@ -29,7 +29,7 @@ auto.create.topics.enable=false
 ## How to create a topic ?
 
 ```
-./kafka-topics.sh --create --topic test-topic -zookeeper localhost:2181 --replication-factor 1 --partitions 4
+./kafka-topics.sh --create --topic test-topic --replication-factor 1 --partitions 4 --bootstrap-server localhost:9092
 ```
 
 ## How to instantiate a Console Producer?
@@ -65,6 +65,13 @@ auto.create.topics.enable=false
 ```
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic --group <group-name>
 ```
+
+### Consume messages With Kafka Headers
+
+```
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic library-events.DLT --from-beginning --property print.headers=true --property print.timestamp=true
+```
+
 </p>
 
 </details>
@@ -91,7 +98,7 @@ kafka-server-start.bat ..\..\config\server.properties
 ## How to create a topic ?
 
 ```
-kafka-topics.bat --create --topic test-topic -zookeeper localhost:2181 --replication-factor 1 --partitions 4
+kafka-topics.bat --create --topic test-topic  --replication-factor 1 --partitions 4 --bootstrap-server localhost:9092
 ```
 
 ## How to instantiate a Console Producer?
@@ -127,6 +134,13 @@ kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test-topic 
 ```
 kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test-topic --group <group-name>
 ```
+
+### Consume messages With Kafka Headers
+
+```
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic library-events.DLT --from-beginning --property print.headers=true --property print.timestamp=true
+```
+
 </p>
 
 </details>
@@ -173,7 +187,7 @@ auto.create.topics.enable=false
 ## List the topics in a cluster
 
 ```
-./kafka-topics.sh --zookeeper localhost:2181 --list
+./kafka-topics.sh --bootstrap-server localhost:9092 --list
 ```
 
 ## Describe topic
@@ -181,24 +195,24 @@ auto.create.topics.enable=false
 - The below command can be used to describe all the topics.
 
 ```
-./kafka-topics.sh --zookeeper localhost:2181 --describe
+./kafka-topics.sh --bootstrap-server localhost:9092 --describe
 ```
 
 - The below command can be used to describe a specific topic.
 
 ```
-./kafka-topics.sh --zookeeper localhost:2181 --describe --topic <topic-name>
+./kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic <topic-name>
 ```
 
 ## Alter the min insync replica
 ```
-./kafka-topics.sh --alter --zookeeper localhost:2181 --topic library-events --config min.insync.replicas=2
+./kafka-configs.sh  --bootstrap-server localhost:9092 --entity-type topics --entity-name library-events --alter --add-config min.insync.replicas=2
 ```
 
 ## Delete a topic
 
 ```
-./kafka-topics.sh --zookeeper localhost:2181 --delete --topic test-topic
+./kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic test-topic
 ```
 ## How to view consumer groups
 
@@ -221,7 +235,7 @@ auto.create.topics.enable=false
 ## Setting the Minimum Insync Replica
 
 ```
-./kafka-configs.sh --alter --zookeeper localhost:2181 --entity-type topics --entity-name test-topic --add-config min.insync.replicas=2
+./kafka-configs.sh --alter --bootstrap-server localhost:9092 --entity-type topics --entity-name test-topic --add-config min.insync.replicas=2
 ```
 </p>
 </details>
@@ -235,7 +249,7 @@ auto.create.topics.enable=false
 ## List the topics in a cluster
 
 ```
-kafka-topics.bat --zookeeper localhost:2181 --list
+kafka-topics.bat --bootstrap-server localhost:9092 --list
 ```
 
 ## Describe topic
@@ -243,25 +257,25 @@ kafka-topics.bat --zookeeper localhost:2181 --list
 - The below command can be used to describe all the topics.
 
 ```
-kafka-topics.bat --zookeeper localhost:2181 --describe
+kafka-topics.bat --bootstrap-server localhost:9092 --describe
 ```
 
 - The below command can be used to describe a specific topic.
 
 ```
-kafka-topics.bat --zookeeper localhost:2181 --describe --topic <topic-name>
+kafka-topics.bat --bootstrap-server localhost:9092 --describe --topic <topic-name>
 ```
 
 ## Alter the min insync replica
 ```
-kafka-topics.bat --alter --zookeeper localhost:2181 --topic library-events --config min.insync.replicas=2
+kafka-configs.bat --bootstrap-server localhost:9092 --entity-type topics --entity-name library-events --alter --add-config min.insync.replicas=2
 ```
 
 
 ## Delete a topic
 
 ```
-kafka-topics.bat --zookeeper localhost:2181 --delete --topic <topic-name>
+kafka-topics.bat --bootstrap-server localhost:9092 --delete --topic <topic-name>
 ```
 
 
